@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>platform_description</name>
+  <version>0.1.0</version>
+  <description>
+    The platform_description package
+  </description>
+
+  <maintainer email="isaac-sim@todo.todo">isaac sim</maintainer>
+
+  <license>Copyright (c) 2022, NVIDIA CORPORATION. All rights reserved.
+    NVIDIA CORPORATION and its licensors retain all intellectual property
+    and proprietary rights in and to this software, related documentation
+    and any modifications thereto.  Any use, reproduction, disclosure or
+    distribution of this software and related documentation without an express
+    license agreement from NVIDIA CORPORATION is strictly prohibited.</license>
+  
+  <url type="Documentation">https://docs.omniverse.nvidia.com/app_isaacsim/app_isaacsim/overview.html</url>
+  <url type="Forums">https://forums.developer.nvidia.com/c/agx-autonomous-machines/isaac/simulation</url>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <exec_depend>urdf</exec_depend>
+
+  <depend>rviz2</depend>
+  <depend>xacro</depend>
+  <depend>rclcpp</depend>
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>joint_state_publisher</depend>
+  <depend>ignition-transport11</depend>
+  <depend>ignition-msgs8</depend>
+  <depend>ignition-gazebo6</depend>
+  <depend>ros_ign_gazebo</depend>
+  <depend>ros_gz</depend>
+
+   <export>
+    <build_type>ament_cmake</build_type>
+    <gazebo_ros
+        gazebo_media_path="${prefix}"
+        gazebo_model_path="${prefix}"
+    gazebo_resource_path="${prefix}"/>
+  </export>
+</package>
