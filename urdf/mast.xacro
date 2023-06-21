@@ -1,0 +1,446 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find platform_description)/urdf/common/parts_definition/mast_stage.xacro" />
+    <xacro:macro name="Mast" params="name parent *origin">
+
+<!--Base mat plié = 2.772 m / 2.765  sans vis
+Base mat déplié = 10.617 m / 10.61 sans vis
+Base sol = 0.362m
+Mesure du mât hors tout ( tête de vis comprises )
+
+=>
+Range: 7.845
+Taille denier étage: 2.5 (?)
+Ecart base -> dernier étage replié: 0.265
+=> Offset min entre chaque étage: 0.053
+
+
+
+-->
+
+    <!-- mast stages -->
+    <!-- Stage 1 -->
+    <xacro:property name="stage_1_length" value="0.915"/>
+    <xacro:property name="stage_1_width" value="0.655"/>
+    <xacro:property name="stage_1_height" value="2.552"/>
+    <xacro:property name="stage_1_profil_size" value="0.02"/>
+    <xacro:property name="stage_1_mass" value="20"/>
+
+    <!-- Stage 2 -->
+    <!--    temp dim, to check-->
+    <xacro:property name="MIN_stage_1_base_to_stage_2_base" value="${1.45+0.053}"/>
+    <xacro:property name="MAX_stage_1_base_to_stage_2_base" value="${1.45+0.053}"/>
+
+    <!--    temp dim, to check-->
+    <xacro:property name="stage_2_length" value="${stage_1_length-2*stage_1_profil_size-0.004}"/>
+    <xacro:property name="stage_2_width" value="${stage_1_width-4*stage_1_profil_size-0.004}"/>
+    <xacro:property name="stage_2_height" value="2.5"/>
+    <xacro:property name="stage_2_profil_size" value="0.02"/>
+    <xacro:property name="stage_2_mass" value="20"/>
+
+
+    <!-- Stage 3 -->
+    <!--    temp dim, to check-->
+    <xacro:property name="MIN_stage_2_base_to_stage_3_base" value="${1.45+0.053}"/>
+    <xacro:property name="MAX_stage_2_base_to_stage_3_base" value="${1.45+0.053}"/>
+
+    <!--    temp dim, to check-->
+    <xacro:property name="stage_3_length" value="${stage_2_length-2*stage_2_profil_size-0.004}"/>
+    <xacro:property name="stage_3_width" value="${stage_2_width-4*stage_2_profil_size-0.004}"/>
+    <xacro:property name="stage_3_height" value="2.5"/>
+    <xacro:property name="stage_3_profil_size" value="0.02"/>
+    <xacro:property name="stage_3_mass" value="20"/>
+
+
+    <!-- Stage 4 -->
+    <!--    temp dim, to check-->
+    <xacro:property name="MIN_stage_3_base_to_stage_4_base" value="${1.5+0.053}"/>
+    <xacro:property name="MAX_stage_3_base_to_stage_4_base" value="${1.5+0.053}"/>
+
+    <!--    temp dim, to check-->
+    <xacro:property name="stage_4_length" value="${stage_3_length-2*stage_3_profil_size-0.004}"/>
+    <xacro:property name="stage_4_width" value="${stage_3_width-4*stage_3_profil_size-0.004}"/>
+    <xacro:property name="stage_4_height" value="2.5"/>
+    <xacro:property name="stage_4_profil_size" value="0.02"/>
+    <xacro:property name="stage_4_mass" value="20"/>
+
+
+    <!-- Stage 5 -->
+    <!--    temp dim, to check-->
+    <xacro:property name="MIN_stage_4_base_to_stage_5_base" value="${1.49+0.053}"/>
+    <xacro:property name="MAX_stage_4_base_to_stage_5_base" value="${1.49+0.053}"/>
+
+    <!--    temp dim, to check-->
+    <xacro:property name="stage_5_length" value="${stage_4_length-2*stage_4_profil_size-0.004}"/>
+    <xacro:property name="stage_5_width" value="${stage_4_width-4*stage_4_profil_size-0.004}"/>
+    <xacro:property name="stage_5_height" value="2.5"/>
+    <xacro:property name="stage_5_profil_size" value="0.02"/>
+    <xacro:property name="stage_5_mass" value="20"/>
+
+
+    <!-- Stage 6 -->
+    <!--    temp dim, to check-->
+    <xacro:property name="MIN_stage_5_base_to_stage_6_base" value="${1.4827+0.053}"/>
+    <xacro:property name="MAX_stage_5_base_to_stage_6_base" value="${1.4827+0.053}"/>
+
+    <!--    temp dim, to check-->
+    <xacro:property name="stage_6_length" value="${stage_5_length-2*stage_5_profil_size-0.004}"/> <!-- 0.355 -->
+    <xacro:property name="stage_6_width" value="${stage_5_width-4*stage_5_profil_size-0.004}"/> <!-- 0.315 -->
+    <xacro:property name="stage_6_height" value="2.56"/>
+    <xacro:property name="stage_6_profil_size" value="0.02"/>
+    <xacro:property name="stage_6_mass" value="20"/>
+
+
+        <!-- Stage 7 -->
+    <!--    temp dim, to check-->
+    <xacro:property name="MIN_stage_6_base_to_stage_7_base" value="${1.47+0.053}"/>
+    <xacro:property name="MAX_stage_6_base_to_stage_7_base" value="${1.47+0.053}"/>
+
+    <!--    temp dim, to check-->
+    <xacro:property name="stage_7_length" value="${stage_6_length-2*stage_6_profil_size-0.004}"/> <!-- 0.355 -->
+    <xacro:property name="stage_7_width" value="${stage_6_width-4*stage_6_profil_size-0.004}"/> <!-- 0.315 -->
+    <xacro:property name="stage_7_height" value="2.56"/>
+    <xacro:property name="stage_7_profil_size" value="0.02"/>
+    <xacro:property name="stage_7_mass" value="20"/>
+
+
+    <!-- Cameras -->
+    <xacro:property name="bot_camera_height" value="0.145"/>
+    <xacro:property name="top_camera_height" value="2.08"/>
+    <xacro:property name="camera_y_delta" value="0.055"/>
+
+    <!-- Stage 1 -->
+    <link name="stage_1_base">
+        <xacro:mast_stage length="${stage_1_length}" width="${stage_1_width}" height="${stage_1_height}" profil_size="${stage_1_profil_size}" profil_coef="2.0" mass="${stage_1_mass}"/>
+    </link>
+
+    <joint name="stage_1_base_joint" type="fixed">
+        <xacro:insert_block name="origin" />
+        <parent link="${parent}"/>
+        <child link="stage_1_base"/>
+    </joint>
+
+    <link name="stage_1_min_base_next">
+    </link>
+
+    <joint name="stage_1_base_to_min_base_next" type="fixed">
+      <origin xyz="0.0 0.0 ${MIN_stage_1_base_to_stage_2_base}"/>
+      <parent link="stage_1_base"/>
+      <child link="stage_1_min_base_next"/>
+    </joint>
+
+    <link name="stage_1_max_base_next">
+    </link>
+
+    <joint name="stage_1_base_to_max_base_next" type="fixed">
+      <origin xyz="0.0 0.0 ${MAX_stage_1_base_to_stage_2_base}"/>
+      <parent link="stage_1_base"/>
+      <child link="stage_1_max_base_next"/>
+    </joint>
+
+    <!-- Stage 2 -->
+    <link name="stage_2_base">
+        <xacro:mast_stage length="${stage_2_length}" width="${stage_2_width}" height="${stage_2_height}" profil_size="${stage_2_profil_size}" profil_coef="2.0" mass="${stage_2_mass}"/>
+    </link>
+
+    <joint name="stage_1_base_to_stage_2_base" type="prismatic">
+      <axis xyz="0 0 1"/>
+      <origin xyz="0.0 0.0 ${MIN_stage_1_base_to_stage_2_base}"/>
+      <parent link="stage_1_base"/>
+      <child link="stage_2_base"/>
+      <limit effort="3000.0" lower="0" upper="${MAX_stage_1_base_to_stage_2_base-MIN_stage_1_base_to_stage_2_base}" velocity="1"/>
+      <dynamics damping="0.15" friction="50"/>
+    </joint>
+    <!-- Stop effort 0.5 /  Move up 0.6 / Move down 0.4 -->
+
+    <link name="stage_2_min_base_next">
+    </link>
+
+    <joint name="stage_2_base_to_min_base_next" type="fixed">
+      <origin xyz="0.0 0.0 ${MIN_stage_2_base_to_stage_3_base}"/>
+      <parent link="stage_2_base"/>
+      <child link="stage_2_min_base_next"/>
+    </joint>
+
+    <link name="stage_2_max_base_next">
+    </link>
+
+    <joint name="stage_2_base_to_max_base_next" type="fixed">
+      <origin xyz="0.0 0.0 ${MAX_stage_2_base_to_stage_3_base}"/>
+      <parent link="stage_2_base"/>
+      <child link="stage_2_max_base_next"/>
+    </joint>
+
+    <!-- Stage 3 -->
+    <link name="stage_3_base">
+        <xacro:mast_stage length="${stage_3_length}" width="${stage_3_width}" height="${stage_3_height}" profil_size="${stage_3_profil_size}" profil_coef="2.0"  mass="${stage_3_mass}"/>
+    </link>
+
+
+    <joint name="stage_2_base_to_stage_3_base" type="prismatic">
+      <axis xyz="0 0 1"/>
+      <origin xyz="0.0 0.0 ${MIN_stage_2_base_to_stage_3_base}"/>
+      <parent link="stage_2_base"/>
+      <child link="stage_3_base"/>
+      <limit effort="3000.0" lower="0" upper="${MAX_stage_2_base_to_stage_3_base-MIN_stage_2_base_to_stage_3_base}" velocity="1"/>
+      <dynamics damping="0.15" friction="50"/>
+    </joint>
+
+    <link name="stage_3_min_base_next">
+    </link>
+
+    <joint name="stage_3_base_to_min_base_next" type="fixed">
+      <origin xyz="0.0 0.0 ${MIN_stage_3_base_to_stage_4_base}"/>
+      <parent link="stage_3_base"/>
+      <child link="stage_3_min_base_next"/>
+    </joint>
+
+    <link name="stage_3_max_base_next">
+    </link>
+
+    <joint name="stage_3_base_to_max_base_next" type="fixed">
+      <origin xyz="0.0 0.0 ${MAX_stage_3_base_to_stage_4_base}"/>
+      <parent link="stage_3_base"/>
+      <child link="stage_3_max_base_next"/>
+    </joint>
+    <!-- Stop effort 0.4 /  Move up 0.5 / Move down 0.3-->
+
+    <!-- Stage 4 -->
+    <link name="stage_4_base">
+        <xacro:mast_stage length="${stage_4_length}" width="${stage_4_width}" height="${stage_4_height}" profil_size="${stage_4_profil_size}" profil_coef="2.0"  mass="${stage_4_mass}"/>
+    </link>
+
+    <joint name="stage_3_base_to_stage_4_base" type="prismatic">
+      <axis xyz="0 0 1"/>
+      <origin xyz="0.0 0.0 ${MIN_stage_3_base_to_stage_4_base}"/>
+      <parent link="stage_3_base"/>
+      <child link="stage_4_base"/>
+      <limit effort="1000.0" lower="0" upper="${MAX_stage_3_base_to_stage_4_base-MIN_stage_3_base_to_stage_4_base}" velocity="1"/>
+      <dynamics damping="0.15" friction="50"/>
+    </joint>
+
+    <link name="stage_4_min_base_next">
+    </link>
+
+    <joint name="stage_4_base_to_min_base_next" type="fixed">
+      <origin xyz="0.0 0.0 ${MIN_stage_4_base_to_stage_5_base}"/>
+      <parent link="stage_4_base"/>
+      <child link="stage_4_min_base_next"/>
+    </joint>
+
+    <link name="stage_4_max_base_next">
+    </link>
+
+    <joint name="stage_4_base_to_max_base_next" type="fixed">
+      <origin xyz="0.0 0.0 ${MAX_stage_4_base_to_stage_5_base}"/>
+      <parent link="stage_4_base"/>
+      <child link="stage_4_max_base_next"/>
+    </joint>
+    <!-- Stop effort 0.3 /  Move up 0.4 / Move down 0.2-->
+
+
+    <!-- Stage 5 -->
+    <link name="stage_5_base">
+        <xacro:mast_stage length="${stage_5_length}" width="${stage_5_width}" height="${stage_5_height}" profil_size="${stage_5_profil_size}" profil_coef="2.0"  mass="${stage_5_mass}"/>
+    </link>
+
+    <joint name="stage_4_base_to_stage_5_base" type="prismatic">
+      <axis xyz="0 0 1"/>
+      <origin xyz="0.0 0.0 ${MIN_stage_4_base_to_stage_5_base}"/>
+      <parent link="stage_4_base"/>
+      <child link="stage_5_base"/>
+      <limit effort="1000.0" lower="0" upper="${MAX_stage_4_base_to_stage_5_base-MIN_stage_4_base_to_stage_5_base}" velocity="1"/>
+      <dynamics damping="0.15" friction="50"/>
+    </joint>
+    <!-- Stop effort 0.2 /  Move 0.3 -->
+
+    <link name="stage_5_min_base_next">
+    </link>
+
+    <joint name="stage_5_base_to_min_base_next" type="fixed">
+      <origin xyz="0.0 0.0 ${MIN_stage_5_base_to_stage_6_base}"/>
+      <parent link="stage_5_base"/>
+      <child link="stage_5_min_base_next"/>
+    </joint>
+
+    <link name="stage_5_max_base_next">
+    </link>
+
+    <joint name="stage_5_base_to_max_base_next" type="fixed">
+      <origin xyz="0.0 0.0 ${MAX_stage_5_base_to_stage_6_base}"/>
+      <parent link="stage_5_base"/>
+      <child link="stage_5_max_base_next"/>
+    </joint>
+
+
+    <!-- Stage 6 -->
+    <link name="stage_6_base">
+        <xacro:mast_stage length="${stage_6_length}" width="${stage_6_width}" height="${stage_6_height}" profil_size="${stage_6_profil_size}" profil_coef="1.0"  mass="${stage_6_mass}"/>
+    </link>
+
+    <joint name="stage_5_base_to_stage_6_base" type="prismatic">
+      <axis xyz="0 0 1"/>
+      <origin xyz="0.0 0.0 ${MIN_stage_5_base_to_stage_6_base}"/>
+      <parent link="stage_5_base"/>
+      <child link="stage_6_base"/>
+      <limit effort="1000.0" lower="0" upper="${MAX_stage_5_base_to_stage_6_base-MIN_stage_5_base_to_stage_6_base}" velocity="0.2"/>
+      <dynamics damping="0.15" friction="50"/>
+    </joint>
+    <!-- Stage 7 -->
+    <link name="stage_7_base">
+        <xacro:mast_stage length="${stage_7_length}" width="${stage_7_width}" height="${stage_7_height}" profil_size="${stage_7_profil_size}" profil_coef="1.0"  mass="${stage_7_mass}"/>
+    </link>
+
+    <joint name="stage_6_base_to_stage_7_base" type="prismatic">
+      <axis xyz="0 0 1"/>
+      <origin xyz="0.0 0.0 ${MIN_stage_6_base_to_stage_7_base}"/>
+      <parent link="stage_6_base"/>
+      <child link="stage_7_base"/>
+      <limit effort="1000.0" lower="0" upper="${MAX_stage_6_base_to_stage_7_base-MIN_stage_6_base_to_stage_7_base}" velocity="0.2"/>
+      <dynamics damping="0.15" friction="50"/>
+    </joint>
+    <!-- Stop effort 0.1 /  Move up 0.2 / Move down 0.0 -->
+
+    <!-- Cameras -->
+    <link name="nikon_camera_right_bot">
+    </link>
+
+    <joint name="stage_6_base_to_bot_right_camera" type="fixed">
+      <origin xyz="0.0 ${-camera_y_delta} ${bot_camera_height}" rpy="0.0 0.0 ${-M_PI_2}"/>
+      <parent link="stage_6_base"/>
+      <child link="nikon_camera_right_bot"/>
+    </joint>
+
+    <link name="nikon_camera_left_bot">
+    </link>
+
+    <joint name="stage_6_base_to_bot_left_camera" type="fixed">
+      <origin xyz="0.0 ${camera_y_delta} ${bot_camera_height}" rpy="0.0 0.0 ${M_PI_2}"/>
+      <parent link="stage_6_base"/>
+      <child link="nikon_camera_left_bot"/>
+    </joint>
+
+    <link name="nikon_camera_right_top">
+    </link>
+
+    <joint name="stage_6_base_to_top_right_camera" type="fixed">
+      <origin xyz="0.0 ${-camera_y_delta} ${top_camera_height}" rpy="0.0 0.0 ${-M_PI_2}"/>
+      <parent link="stage_6_base"/>
+      <child link="nikon_camera_right_top"/>
+    </joint>
+
+    <link name="nikon_camera_left_top">
+    </link>
+
+    <joint name="stage_6_base_to_top_left_camera" type="fixed">
+      <origin xyz="0.0 ${camera_y_delta} ${top_camera_height}" rpy="0.0 0.0 ${M_PI_2}"/>
+      <parent link="stage_6_base"/>
+      <child link="nikon_camera_left_top"/>
+    </joint>
+
+    <!-- Top mast -->
+    <link name="top_mast">
+    </link>
+
+    <joint name="stage_6_base_to_top" type="fixed">
+      <origin xyz="0.0 0.0 ${stage_6_height}" rpy="0 0 0"/>
+      <parent link="stage_6_base"/>
+      <child link="top_mast"/>
+    </joint>
+
+    <link name="top_mast_with_margin">
+    </link>
+
+    <joint name="top_to_top_with_margin" type="fixed">
+      <origin xyz="0.0 0.0 0.5" rpy="0 0 0"/>
+      <parent link="top_mast"/>
+      <child link="top_mast_with_margin"/>
+    </joint>
+
+
+    <ros2_control name="IgnitionSystem" type="system">
+      <hardware>
+        <plugin>ign_ros2_control/IgnitionSystem</plugin>
+      </hardware>
+      <joint name="stage_1_base_to_stage_2_base">
+        <command_interface name="effort">
+          <param name="min">0</param>
+          <param name="max">"${MAX_stage_1_base_to_stage_2_base-MIN_stage_1_base_to_stage_2_base}</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+    </ros2_control>
+
+    <ros2_control name="IgnitionSystem" type="system">
+      <hardware>
+        <plugin>ign_ros2_control/IgnitionSystem</plugin>
+      </hardware>
+      <joint name="stage_2_base_to_stage_3_base">
+        <command_interface name="effort">
+          <param name="min">0</param>
+          <param name="max">"${MAX_stage_2_base_to_stage_3_base-MIN_stage_2_base_to_stage_3_base}</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+    </ros2_control>
+
+    <ros2_control name="IgnitionSystem" type="system">
+      <hardware>
+        <plugin>ign_ros2_control/IgnitionSystem</plugin>
+      </hardware>
+      <joint name="stage_3_base_to_stage_4_base">
+        <command_interface name="effort">
+          <param name="min">0</param>
+          <param name="max">"${MAX_stage_3_base_to_stage_4_base-MIN_stage_3_base_to_stage_4_base}</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+    </ros2_control>
+
+    <ros2_control name="IgnitionSystem" type="system">
+      <hardware>
+        <plugin>ign_ros2_control/IgnitionSystem</plugin>
+      </hardware>
+      <joint name="stage_4_base_to_stage_5_base">
+        <command_interface name="effort">
+          <param name="min">0</param>
+          <param name="max">"${MAX_stage_4_base_to_stage_5_base-MIN_stage_4_base_to_stage_5_base}</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+    </ros2_control>
+
+    <ros2_control name="IgnitionSystem" type="system">
+      <hardware>
+        <plugin>ign_ros2_control/IgnitionSystem</plugin>
+      </hardware>
+      <joint name="stage_5_base_to_stage_6_base">
+        <command_interface name="effort">
+          <param name="min">0</param>
+          <param name="max">"${MAX_stage_5_base_to_stage_6_base-MIN_stage_5_base_to_stage_6_base}</param>
+        </command_interface>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+        <state_interface name="effort"/>
+      </joint>
+    </ros2_control>
+
+    <gazebo>
+      <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+        <parameters>$(find platform_description)/config/mast_controller_effort.yaml</parameters>
+      </plugin>
+    </gazebo>
+
+
+
+
+    </xacro:macro>
+</robot>

@@ -47,8 +47,8 @@ def generate_launch_description():
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gazebo, 'launch', 'gz_sim.launch.py')),
-        launch_arguments={'gz_args': '-v 0 -r  test.sdf'}.items(),
-    )
+        launch_arguments={'gz_args': '-v 0 -r test_copy.sdf'}.items(),
+    ) 
 
     ## ***** Nodes *****
     robot_state_publisher = Node(
@@ -88,14 +88,12 @@ def generate_launch_description():
                    '/clock@rosgraph_msgs/msg/Clock[ignition.msgs.Clock',],
         parameters = [{'use_sim_time': True}],
         output='screen')
-
-    # Define LaunchDescription variable and return it
-    ld = LaunchDescription()    
-    ld.add_action(gazebo)
-    ld.add_action(robot_state_publisher)
-    ld.add_action(joint_state_publisher)
-    ld.add_action(spawn)
-    ld.add_action(bridge)
-
-    return ld
+    
+    return LaunchDescription([
+      gazebo,
+      robot_state_publisher,
+      joint_state_publisher,
+      spawn,
+      bridge,
+    ])
 # EOF

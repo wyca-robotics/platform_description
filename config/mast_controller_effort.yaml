@@ -1,0 +1,24 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 1000  # Hz
+
+    effort_controllers:
+      type: effort_controllers/JointGroupEffortController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+effort_controllers:
+  ros__parameters:
+    joints:
+      - stage_1_base_to_stage_2_base
+      - stage_2_base_to_stage_3_base
+      - stage_3_base_to_stage_4_base
+      - stage_4_base_to_stage_5_base
+      - stage_5_base_to_stage_6_base
+    command_interfaces:
+      - effort
+    state_interfaces:
+      - position
+      - velocity
+      - effort
